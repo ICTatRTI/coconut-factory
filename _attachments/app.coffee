@@ -72,9 +72,7 @@ class DefaultView extends Backbone.View
         "title": $("[name=config-title]").val()
         "cloud": "http://#{document.location.host}"
         "cloud_database_name": $("[name=database-name]").val()
-        "local_couchdb_admin_username": $("[name=admin-username]").val()
-        "local_couchdb_admin_password": $("[name=admin-password]").val()
-        "cloud_credentials": "#{$("[name=admin-username]").val()}:#{$("[name=admin-password]").val()}"
+        "cloud_credentials": "#{cloudCouchUsername}:#{cloudCouchPassword}"
         "date_format": "YYYY-MM-DD HH:mm:ss"
         "sync_mode": $('[name=config-sync-mode]:checked').val()
         "http-post-target": $("[name=config-http-post-target]").val() if $('[name=config-sync-mode]:checked').val() is "http-post"
@@ -210,9 +208,12 @@ class DefaultView extends Backbone.View
       </div>
     "
 
+cloudCouchUsername = prompt "Enter username"
+cloudCouchPassword = prompt "Enter password"
+
 $.couch.login
-  name: prompt "Enter username"
-  password: prompt "Enter password"
+  name: cloudCouchUsername
+  password: cloudCouchPassword
 
 Coconut = {}
 Coconut.router = new Router()
